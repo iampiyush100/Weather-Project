@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Weather</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-1/css/all.min.css" integrity="sha512-wDB6AYiYP4FO5Sxieamqy9wtpAY3qdHMqlhZecIEUu1YjkLw5gQf/4ZDgOzmCBAF5SheMjmugkpUSVoUrGbLkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+ 
+</head>
+<body>
+
+    <div class="box">
+        <div class="wave -one"> </div>
+        <div class="wave -two"> </div>
+        <div class="wave -three"> </div>
+
+        <div id="weathercom"><i class="fas fa-sun" style="color: orange;"></i></div>
+        <div class="info">
+            <h2 class="loaction"><i class="fas fa-street-view"></i>{%city%},{%country%}</h2>
+            <p id="date"> SUN | JULY 16 | 1:46PM</p>
+            <h1 class="temp">{%tempval%}</h1>\
+            <h3 class="tempmin_max">{%mintemp%} | {%maxtemp%}</h3>
+        </div>
+        
+    </div>
+    <script>
+        const curDate = document.getElementById("date");
+        const weathercom = document.getElementById("weathercom");
+        const tempStatus = "clouds";
+        const currentTime = new Date();
+        const getCurrentDay = ()=>
+        { 
+            const weekday = new Array(7);
+            weekday[0] = "sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednessday";
+            weekday[4] = "Thusday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+            var w = weekday[currentTime.getDay()];
+            return w;
+        }
+        
+        const getCurrentTime = ()=>
+        {
+            const hour12 = currentTime.getHours();
+            const TimeIn12Hours = hour12-12;
+          // console.log(TimeIn12Hours);
+           var getMin = currentTime.getMinutes();
+           const getSec = currentTime.getSeconds();
+           const period = "PM";
+           if(TimeIn12Hours>11 && getMin>=59)
+            period = "AM";
+           if(getMin < 10)
+            getMin = "0"+getMin;
+
+            return `${TimeIn12Hours}:${getMin} ${period}`;
+        }
+        const getDME = ()=>
+        {
+            var mon = new Array();
+                mon[0] = "January";
+                mon[1] = "February";
+                mon[2] = "March";
+                mon[3] = "April";
+                mon[4] = "May";
+                mon[5] = "June";
+                mon[6] = "July";
+                mon[7] = "August";
+                mon[8] = "September";
+                mon[9] = "October";
+                mon[10] = "November";
+                mon[11] = "December";
+
+            const month = mon[currentTime.getMonth()];
+            //console.log(month);
+            const date = currentTime.getDate();
+            const year = currentTime.getFullYear();
+
+            console.log(`${date}:${month}:${year}`);
+            const comDate = (`${date}:${month}:${year}`);
+
+            return comDate;
+
+        }
+        const WEEK= getCurrentDay();
+       const TIME = getCurrentTime();
+       const DATE= getDME();
+
+       curDate.innerHTML=DATE +" • " +TIME+ " • "+WEEK;
+
+    </script>
+</body>
+</html>
